@@ -21,14 +21,14 @@ print("pindef done")
 def setdir (actuator, dir) :
     pins = act.get(actuator)
     if dir == "fw" :
-        GPIO.output(pins['a'], GPIO.HIGH)
-        GPIO.output(pins['b'], GPIO.LOW)
-    if dir == "rev" :
         GPIO.output(pins['a'], GPIO.LOW)
         GPIO.output(pins['b'], GPIO.HIGH)
+    if dir == "rev" :
+        GPIO.output(pins['a'], GPIO.HIGH)
+        GPIO.output(pins['b'], GPIO.LOW)
 
 #init pwm for enable pins
-p = GPIO.PWM(pins['en'],100)
+p = GPIO.PWM(act['1']['en'], 100)
 p.start(0)
 
 print("pwm start")
