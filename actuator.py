@@ -28,7 +28,7 @@ def setdir (actuator, dir) :
         GPIO.output(pins['b'], GPIO.LOW)
 
 #init pwm for enable pins
-p = GPIO.PWM(act['1']['en'], 100)
+p = GPIO.PWM(act[1]['en'], 100)
 p.start(0)
 
 print("pwm start")
