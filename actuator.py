@@ -16,6 +16,8 @@ for act_num, pins in act.items():
     GPIO.output(pins['b'], GPIO.LOW)
     GPIO.setup(pins['en'], GPIO.OUT)
 
+print("pindef done")
+
 def setdir (actuator, dir) :
     pins = act.get(actuator)
     if dir == "fw" :
@@ -28,6 +30,8 @@ def setdir (actuator, dir) :
 #init pwm for enable pins
 p = GPIO.PWM(pins['en'],100)
 p.start(0)
+
+print("pwm start")
 
 try:
     while (1) :
