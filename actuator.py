@@ -32,11 +32,13 @@ p.start(0)
 try:
     while (1) :
         setdir(1, "fw")
+        print("fw")
         p.ChangeDutyCycle(100)
         time.sleep(1000)
         p.ChangeDutyCycle(0)
         time.sleep(1000)
         setdir(1, "rev")
+        print("rev")
         p.ChangeDutyCycle(100)
         time.sleep(1000)
         p.ChangeDutyCycle(0)
