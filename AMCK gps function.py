@@ -1,4 +1,3 @@
-pip install simplekml pyproj shapely 
 import gps
 import time
 import csv
@@ -99,23 +98,23 @@ def generate_coverage_path(points, spacing):
     return path
 
 # --- Recording Phase ---
-#session = gps.gps("localhost", "2947")
-#session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
-#recorded_points = []
+session = gps.gps("localhost", "2947")
+session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
+recorded_points = []
 
-#print("1. WALK THE PERIMETER. Press Ctrl+C when done.")
-#try:
- #   while True:
-  #      report = session.next()
-   #     if report['class'] == 'TPV':
-    #        lat, lon = getattr(report, 'lat', 0.0), getattr(report, 'lon', 0.0)
-     #       if lat and lon:
-      #          if not recorded_points or (lon, lat) != recorded_points[-1]:
-       #             recorded_points.append((lon, lat))
-        #            print(f"Points: {len(recorded_points)}", end='\r')
-        #time.sleep(0.5)
-#except KeyboardInterrupt:
-#    print("\nRecording Finished.")
+print("1. WALK THE PERIMETER. Press Ctrl+C when done.")
+try:
+    while True:
+        report = session.next()
+        if report['class'] == 'TPV':
+            lat, lon = getattr(report, 'lat', 0.0), getattr(report, 'lon', 0.0)
+            if lat and lon:
+                if not recorded_points or (lon, lat) != recorded_points[-1]:
+                    recorded_points.append((lon, lat))
+                    print(f"Points: {len(recorded_points)}", end='\r')
+        time.sleep(0.5)
+except KeyboardInterrupt:
+    print("\nRecording Finished.")
 
 # --- Path Generation Phase ---
 if len(recorded_points) >= 3:

@@ -53,3 +53,4 @@ try:
 except KeyboardInterrupt:
     print("stopping")
     p.stop()
+    GPIO.cleanup()
