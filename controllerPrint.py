@@ -10,10 +10,10 @@ def main():
     joysticks = {}
 
     while(1):
-        a0 = joystick.get_axis(0)
-        a1 = joystick.get_axis(1)
-        a2 = joystick.get_axis(2)
-        a3 = joystick.get_axis(3)
+        a0 = joysticks.get_axis(0)
+        a1 = joysticks.get_axis(1)
+        a2 = joysticks.get_axis(2)
+        a3 = joysticks.get_axis(3)
 
         print(f"0: {a0:>6.3f} 1: {a1:>6.3f} 2: {a2:>6.3f} 3: {a3:>6.3f}\n")
 
