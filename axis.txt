@@ -1,0 +1,7 @@
+ls u/d axis 1
+ls l/r axis 0
+rs u/d axis 4
+rs l/r axis 3
+
+down = 1, up = -1
+left = -1, right = 1
