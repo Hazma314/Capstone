@@ -55,7 +55,7 @@ def parse_line(line):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", required=True, help="Serial port (e.g. COM3 or /dev/ttyACM0)")
-    parser.add_argument("--baudrate", type=int, default=9600)
+    parser.add_argument("--baudrate", type=int, default=19200)
     args = parser.parse_args()
 
     ser = serial.Serial(args.port, args.baudrate, timeout=1)

@@ -30,7 +30,9 @@ def setdir (actuator, dir) :
 
 #init pwm for enable pins
 p = GPIO.PWM(act[1]['en'], 100)
+q = GPIO.PWM(act[2]['en'], 100)
 p.start(0)
+q.start(0)
 
 print("pwm start")
 
@@ -46,21 +48,21 @@ def main():
             print(f"1: {lsv:>6.3f} 4: {rsv:>6.3f}\n")
             print("\n")
 
-            if (lsv > -0.125) :
+            if (lsv < -0.125) :
+                setdir(1, "rev")
+                p.ChangeDutyCycle(abs(lsv)*100)
+            elif (lsv > 0.125) :
                 setdir(1, "fw")
                 p.ChangeDutyCycle(lsv*100)
-            elif (lsv < 0.125) :
-                setdir(1, "rev")
-                p.ChangeDutyCycle(-lsv*100)
 
-            if (rsv > -0.125) :
+            if (rsv < -0.125) :
                 setdir(2, "fw")
-                p.ChangeDutyCycle(rsv*100)
-            elif (rsv < 0.125) :
+                q.ChangeDutyCycle(abs(rsv)*100)
+            elif (rsv > 0.125) :
                 setdir(2, "rev")
-                p.ChangeDutyCycle(-rsv*100)
+                q.ChangeDutyCycle(abs(rsv)*100)
 
-            time.sleep(0.1)
+            time.sleep(0.01)
 
     except KeyboardInterrupt:
         pygame.quit()
