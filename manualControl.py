@@ -2,6 +2,16 @@ import pygame
 import RPi.GPIO as GPIO
 import time
 
+#init adc
+import board
+i2c =  board.I2C()
+from adafruit_ads1x15 import ADS1115, AnalogIn, ads1x15
+ads = ADS1115(i2c)
+a0 = AnalogIn(ads, ads1x15.Pin.A0)
+a1 = AnalogIn(ads, ads1x15.Pin.A1)
+#ads.mode = Mode.CONTINUOUS       DOES NOT WORK
+ads.gain = 2/3 # +/- 6.144V range (limited to VDD +0.3V max!)
+
 #human readable pin names
 act = {
     1: {"a": 29, "b": 31, "en": 32},
@@ -54,6 +64,17 @@ def main():
             elif (lsv > 0.125) :
                 setdir(1, "fw")
                 p.ChangeDutyCycle(lsv*100)
+            
+            # return to netural if stick is near center
+            # untested and not implemented until pots are confirmed working
+            #
+            # if (abs(lsv) <= 0.125) :
+            #     if (a0.value > 10000) :
+            #         setdir(1, "fw")
+            #         p.ChangeDutyCycle((a0.value/65535)*100) 
+            #     elif (a0.value < 5000) :
+            #         setdir(1, "rev")
+            #         p.ChangeDutyCycle((1-(a0.value/65535))*100)
 
             if (rsv < -0.125) :
                 setdir(2, "fw")
@@ -61,6 +82,16 @@ def main():
             elif (rsv > 0.125) :
                 setdir(2, "rev")
                 q.ChangeDutyCycle(abs(rsv)*100)
+
+            # see above comment block
+            #
+            # if (abs(rsv) <= 0.125) :
+            #     if (a1.value > 10000) :
+            #         setdir(2, "fw")
+            #         q.ChangeDutyCycle((a1.value/65535)*100)
+            #     elif (a1.value < 5000) :
+            #         setdir(2, "rev")
+            #         q.ChangeDutyCycle((1-(a1.value/65535))*100)
 
             time.sleep(0.01)
 
